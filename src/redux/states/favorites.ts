@@ -1,8 +1,8 @@
-import { LocalStorageTypes, Language } from '@/models';
+import { LocalStorageTypes, Hotel } from '@/models';
 import { getLocalStorage, setLocalStorage } from '@/utilities';
 import { createSlice, current } from '@reduxjs/toolkit'
 
-const initialState: Language[] =[];
+const initialState: Hotel[] =[];
 
 export const favoritesSlice = createSlice({
     name: `favorites`,
@@ -13,7 +13,7 @@ export const favoritesSlice = createSlice({
             return action.payload;
         },
         removeFavorite: (state, action)=>{
-            const filteredState = current(state).filter((p: Language) => p.id !== action.payload.id);
+            const filteredState = current(state).filter((p: Hotel) => p.id !== action.payload.id);
             setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);
             return filteredState;
         }

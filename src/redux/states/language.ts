@@ -1,19 +1,19 @@
-import { LocalStorageTypes, Language } from '@/models';
+import { LocalStorageTypes, Hotel } from '@/models';
 import { getLocalStorage, setLocalStorage } from '@/utilities';
 import { createSlice} from '@reduxjs/toolkit'
 
-const initialState: Language[] =[];
+const initialState: Hotel[] =[];
  
-export const languageSlice = createSlice({
-    name: `language`,
+export const hotelSlice = createSlice({
+    name: `hotel`,
     initialState: getLocalStorage(LocalStorageTypes.LANGUAGE) ? JSON.parse(getLocalStorage(LocalStorageTypes.LANGUAGE) as string): initialState,
     reducers:{
-        addLanguage: ( state,action) =>{
+        addHotel: ( state,action) =>{
             setLocalStorage(LocalStorageTypes.LANGUAGE, state);
             return action.payload;
         }
     }
 })
 export const {
-    addLanguage
-}= languageSlice.actions;
+    addHotel
+}= hotelSlice.actions;

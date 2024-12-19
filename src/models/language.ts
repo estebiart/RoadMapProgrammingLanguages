@@ -1,6 +1,6 @@
-export interface Language {
+export interface Hotel {
     id: string,
-    language: string,
+    hotel: string,
     tecnology: string,
     ability: string,
     specification:string 

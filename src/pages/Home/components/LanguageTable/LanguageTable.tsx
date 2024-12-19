@@ -1,5 +1,5 @@
 "use client";
-import { Language, LocalStorageTypes } from '@/models';
+import { Hotel, LocalStorageTypes } from '@/models';
 import { addFavorite } from '@/redux/states';
 import { AppStore } from '@/redux/store';
 import { setLocalStorage } from '@/utilities';
@@ -8,22 +8,22 @@ import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export type LanguageTableProps = {
+export type HotelTableProps = {
 	// types...
 }
 
-const LanguageTable: React.FC<LanguageTableProps>  = ({}) => {
-	const [selectedLanguage, setSelectedLanguage] = useState<Language[]>([]);
+const HotelTable: React.FC<HotelTableProps>  = ({}) => {
+	const [selectedHotel, setSelectedHotel] = useState<Hotel[]>([]);
 	const dispatch = useDispatch();
-	const stateLanguage = useSelector((store: AppStore) => store.language);
-	const favoriteLanguage = useSelector((store: AppStore) => store.favorites);
-	const findLanguage = (language: Language) => !!selectedLanguage.find(p => p.id === language.id);
-	const filterLanguage = (language: Language) => favoriteLanguage.filter(p => p.id !== language.id);
-	const handleChange = (language: Language) => {
-		const filteredLanguage = findLanguage(language) ? filterLanguage(language) : [...selectedLanguage, language];
-		dispatch(addFavorite(filteredLanguage));
-		setSelectedLanguage(filteredLanguage);
-		setLocalStorage(LocalStorageTypes.FAVORITES, filteredLanguage);
+	const stateHotel = useSelector((store: AppStore) => store.hotel);
+	const favoriteHotel = useSelector((store: AppStore) => store.favorites);
+	const findHotel = (hotel: Hotel) => !!selectedHotel.find(p => p.id === hotel.id);
+	const filterHotel = (hotel: Hotel) => favoriteHotel.filter(p => p.id !== hotel.id);
+	const handleChange = (hotel: Hotel) => {
+		const filteredHotel = findHotel(hotel) ? filterHotel(hotel) : [...selectedHotel, hotel];
+		dispatch(addFavorite(filteredHotel));
+		setSelectedHotel(filteredHotel);
+		setLocalStorage(LocalStorageTypes.FAVORITES, filteredHotel);
 	  };
 	const columns = [
 		{
@@ -33,12 +33,12 @@ const LanguageTable: React.FC<LanguageTableProps>  = ({}) => {
 		  headerName: '',
 		  width: 50,
 		  renderCell: (params: GridRenderCellParams) => (
-			 <>{<Checkbox size="small" checked={findLanguage(params.row)} onChange={() => handleChange(params.row)} />}</>
+			 <>{<Checkbox size="small" checked={findHotel(params.row)} onChange={() => handleChange(params.row)} />}</>
 		  )
 		},
 		{
-		  field: 'language',
-		  headerName: 'Language',
+		  field: 'hotel',
+		  headerName: 'Hotel',
 		  flex: 1,
 		  minWidth: 150,
 		  renderCell: (params: GridRenderCellParams) => <>{params.value}</>
@@ -63,11 +63,11 @@ const LanguageTable: React.FC<LanguageTableProps>  = ({}) => {
 		}
 	  ];
 	  useEffect(() => {
-		setSelectedLanguage(favoriteLanguage);
-	  }, [favoriteLanguage]);
+		setSelectedHotel(favoriteHotel);
+	  }, [favoriteHotel]);
 	return (
 		<DataGrid 
-		rows={stateLanguage}
+		rows={stateHotel}
 		columns={columns}  
 		disableColumnSelector
 		disableRowSelectionOnClick
@@ -81,4 +81,4 @@ const LanguageTable: React.FC<LanguageTableProps>  = ({}) => {
 	);
 };
 
-export default LanguageTable;
+export default HotelTable;

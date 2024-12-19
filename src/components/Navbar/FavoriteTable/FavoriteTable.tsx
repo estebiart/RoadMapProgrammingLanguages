@@ -1,5 +1,5 @@
 "use client";
-import { Language } from '@/models';
+import { Hotel } from '@/models';
 import { removeFavorite } from '@/redux/states';
 import { AppStore } from '@/redux/store';
 import { Delete } from '@mui/icons-material';
@@ -16,8 +16,8 @@ const FavoriteTable: React.FC<FavoriteTableProps>  = ({}) => {
 	const dispatch = useDispatch();
 	const stateFavorites = useSelector((store: AppStore) => store.favorites)
 
-	const handleClick = (language: Language) => {
-		dispatch(removeFavorite(language)); 
+	const handleClick = (hotel: Hotel) => {
+		dispatch(removeFavorite(hotel)); 
 	};
 	const columns = [
 		{
@@ -37,8 +37,8 @@ const FavoriteTable: React.FC<FavoriteTableProps>  = ({}) => {
 			)
 		  },
 		  {
-			field: 'language',
-			headerName: 'Language',
+			field: 'hotel',
+			headerName: 'Hotel',
 			flex: 1,
 			minWidth: 150,
 			renderCell: (params: GridRenderCellParams) => <>{params.value}</>

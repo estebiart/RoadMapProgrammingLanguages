@@ -7,5 +7,11 @@ describe('Home', () => {
         const { baseElement } = render(<Home />);
 
         expect(baseElement).toBeTruthy();
+
+
+        await waitFor(() => {
+            expect( screen.getByText('Pienso luego existo')).toBeInTheDocument();
+        })
+        
     });
 });
